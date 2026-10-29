@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
 
@@ -13,6 +13,14 @@ def create_app():
 
     @app.route("/")
     def home():
-        return "Scholarship Finder is running!"
+        return render_template("index.html")
+
+    @app.route("/login")
+    def login():
+        return render_template("login.html")
+
+    @app.route("/register")
+    def register():
+        return render_template("register.html")
 
     return app

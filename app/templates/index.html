@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-primary text-white text-center rounded-3 p-5 mb-4">
+  <h1 class="fw-bold">Find scholarships you actually qualify for</h1>
+  <p class="lead">Create a profile once. We check every scholarship against it and show
+    which requirements you meet and which you are missing.</p>
+  <a class="btn btn-light btn-lg me-2" href="/register">Get started</a>
+  <a class="btn btn-outline-light btn-lg" href="/login">Login</a>
+</div>
+
+<div class="row text-center g-3">
+  <div class="col-md-4">
+    <div class="card h-100"><div class="card-body">
+      <h5>1. Build your profile</h5>
+      <p class="text-muted mb-0">GPA, degree level, field of study, income and interests.</p>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100"><div class="card-body">
+      <h5>2. See your eligibility</h5>
+      <p class="text-muted mb-0">Eligible, close match or not eligible, with clear reasons.</p>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100"><div class="card-body">
+      <h5>3. Apply officially</h5>
+      <p class="text-muted mb-0">We send you to the provider's official website.</p>
+    </div></div>
+  </div>
+</div>
+{% endblock %}
