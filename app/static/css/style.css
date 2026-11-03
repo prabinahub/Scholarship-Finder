@@ -196,11 +196,22 @@ p { margin: 0 0 1rem; }
 .college-mini .where { color: var(--muted); font-size: .9rem; }
 .college-mini .count { font-size: .9rem; font-weight: 600; }
 
+/* Profile form */
+.page-narrow { max-width: 760px; margin: 0 auto; }
+.form-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 2rem; box-shadow: 0 8px 24px rgba(31, 41, 51, .06); }
+.form-section { margin-bottom: 1.75rem; }
+.form-section h3 { font-size: 1.05rem; margin-bottom: 1.1rem; padding-bottom: .55rem; border-bottom: 1px solid var(--line); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.25rem; }
+.form-grid .full { grid-column: 1 / -1; }
+.form-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+
 /* Phones and small tablets */
 @media (max-width: 860px) {
   .hero-grid, .auth-grid, .dash-grid, .filter-bar { grid-template-columns: 1fr; gap: 2rem; }
   .filter-bar { gap: .6rem; }
   .dash-side { position: static; order: -1; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-card { padding: 1.4rem; }
   .card-grid, .college-grid, .mini-grid { grid-template-columns: 1fr; }
   .auth-card { margin: 0 auto; }
   .hero { padding-top: 2rem; }

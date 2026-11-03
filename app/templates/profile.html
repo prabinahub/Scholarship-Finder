@@ -2,73 +2,82 @@
 {% block title %}My profile{% endblock %}
 
 {% block content %}
-<div class="card mx-auto" style="max-width: 720px;">
-  <div class="card-body">
-    <h4 class="mb-1">My profile</h4>
-    <p class="text-muted">This information is used to check your eligibility.</p>
-    <form method="post" class="row g-3">
+<div class="wrap page-pad">
+  <div class="page-narrow">
 
-      <div class="col-md-6">
-        <label class="form-label">Degree level you are applying for</label>
-        <select class="form-select" name="degree_level" required>
-          <option value="">Select</option>
-          {% for l in levels %}
-            <option value="{{ l }}" {{ 'selected' if p.degree_level == l }}>{{ l }}</option>
-          {% endfor %}
-        </select>
+    <div class="page-head">
+      <h1>My profile</h1>
+      <p class="muted">We use these details to check which scholarships you qualify for. You can change them at any time.</p>
+    </div>
+
+    <form method="post" class="form-card">
+
+      <div class="form-section">
+        <h3>Your studies</h3>
+        <div class="form-grid">
+          <div class="field">
+            <label for="degree_level">Degree level you are applying for</label>
+            <select id="degree_level" class="form-select" name="degree_level" required>
+              <option value="">Select</option>
+              {% for l in levels %}<option value="{{ l }}" {{ 'selected' if p.degree_level == l }}>{{ l }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <label for="field_of_study">Field of study</label>
+            <select id="field_of_study" class="form-select" name="field_of_study" required>
+              <option value="">Select</option>
+              {% for f in fields %}<option value="{{ f }}" {{ 'selected' if p.field_of_study == f }}>{{ f }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <label for="institution">University or college</label>
+            <input id="institution" class="form-control" name="institution" value="{{ p.institution or '' }}" placeholder="Where you study or studied">
+          </div>
+          <div class="field">
+            <label for="course">Course or program</label>
+            <input id="course" class="form-control" name="course" value="{{ p.course or '' }}" placeholder="e.g. BTechEd in IT">
+          </div>
+        </div>
       </div>
 
-      <div class="col-md-6">
-        <label class="form-label">Field of study</label>
-        <select class="form-select" name="field_of_study" required>
-          <option value="">Select</option>
-          {% for f in fields %}
-            <option value="{{ f }}" {{ 'selected' if p.field_of_study == f }}>{{ f }}</option>
-          {% endfor %}
-        </select>
+      <div class="form-section">
+        <h3>Grades and background</h3>
+        <div class="form-grid">
+          <div class="field">
+            <label for="gpa">GPA</label>
+            <input id="gpa" class="form-control" type="number" step="0.01" min="0" max="4" name="gpa" value="{{ p.gpa if p.gpa is not none else '' }}" placeholder="e.g. 3.40">
+            <div class="hint">On a 4.0 scale.</div>
+          </div>
+          <div class="field">
+            <label for="nationality">Nationality</label>
+            <input id="nationality" class="form-control" name="nationality" value="{{ p.nationality or 'Nepali' }}">
+          </div>
+          <div class="field">
+            <label for="location">Location</label>
+            <input id="location" class="form-control" name="location" value="{{ p.location or '' }}" placeholder="Your province, e.g. Bagmati">
+          </div>
+          <div class="field">
+            <label for="income">Yearly family income (NPR)</label>
+            <input id="income" class="form-control" type="number" min="0" name="income" value="{{ p.income if p.income is not none else '' }}" placeholder="e.g. 300000">
+            <div class="hint">Only used for scholarships that have an income limit.</div>
+          </div>
+        </div>
       </div>
 
-      <div class="col-md-6">
-        <label class="form-label">University / college</label>
-        <input class="form-control" name="institution" value="{{ p.institution or '' }}">
+      <div class="form-section">
+        <h3>Your interests</h3>
+        <div class="field">
+          <label for="interests">Interests</label>
+          <input id="interests" class="form-control" name="interests" value="{{ p.interests or '' }}" placeholder="e.g. web development, teaching, research">
+          <div class="hint">Separate with commas. This helps us put the most relevant scholarships first.</div>
+        </div>
       </div>
 
-      <div class="col-md-6">
-        <label class="form-label">Course / program</label>
-        <input class="form-control" name="course" value="{{ p.course or '' }}" placeholder="e.g. BTechEd in IT">
+      <div class="form-actions">
+        <button class="btn-sf">Save profile</button>
+        <a href="/dashboard">Cancel</a>
       </div>
 
-      <div class="col-md-4">
-        <label class="form-label">GPA (out of 4.0)</label>
-        <input class="form-control" type="number" step="0.01" min="0" max="4" name="gpa"
-               value="{{ p.gpa if p.gpa is not none else '' }}">
-      </div>
-
-      <div class="col-md-4">
-        <label class="form-label">Location (province)</label>
-        <input class="form-control" name="location" value="{{ p.location or '' }}" placeholder="e.g. Bagmati">
-      </div>
-
-      <div class="col-md-4">
-        <label class="form-label">Nationality</label>
-        <input class="form-control" name="nationality" value="{{ p.nationality or 'Nepali' }}">
-      </div>
-
-      <div class="col-md-6">
-        <label class="form-label">Yearly family income (NPR)</label>
-        <input class="form-control" type="number" min="0" name="income"
-               value="{{ p.income if p.income is not none else '' }}">
-      </div>
-
-      <div class="col-md-6">
-        <label class="form-label">Interests (comma separated)</label>
-        <input class="form-control" name="interests" value="{{ p.interests or '' }}"
-               placeholder="e.g. web development, teaching, AI">
-      </div>
-
-      <div class="col-12">
-        <button class="btn btn-primary">Save profile</button>
-      </div>
     </form>
   </div>
 </div>
