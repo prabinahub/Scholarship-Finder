@@ -1,8 +1,125 @@
 {% extends "base.html" %}
-{% block title %}Dashboard{% endblock %}
+{% block title %}Scholarships{% endblock %}
 
 {% block content %}
-<h4>Welcome, {{ current_user.name }}</h4>
-<p class="text-muted">Your scholarship results will appear here.</p>
-<a class="btn btn-outline-secondary btn-sm" href="/logout">Logout</a>
+{% set labels = {'eligible': 'Eligible', 'close': 'Close match', 'not': 'Not eligible'} %}
+{% set heads = {
+  'all':     ('All scholarships', 'Colleges offering scholarships'),
+  'search':  ('Search results', 'Colleges offering these scholarships'),
+  'matched': ('Scholarships matched to your profile', 'Colleges offering your matches')
+} %}
+{% set h = heads[mode] %}
+<div class="wrap page-pad">
+
+  <div class="page-head">
+    <h1>{{ h[0] }}</h1>
+    <p class="muted">Browse verified scholarships from colleges, universities and providers across Nepal.</p>
+  </div>
+
+  <div class="dash-grid">
+
+    <section class="dash-main">
+      <form class="filter-bar" method="get">
+        <input class="form-control" name="q" value="{{ request.args.get('q', '') }}" placeholder="Search scholarships" aria-label="Search scholarships">
+        <select class="form-select" name="level" aria-label="Degree level">
+          <option value="">All levels</option>
+          {% for l in levels %}<option value="{{ l }}" {{ 'selected' if request.args.get('level') == l }}>{{ l }}</option>{% endfor %}
+        </select>
+        <select class="form-select" name="field" aria-label="Field of study">
+          <option value="">All fields</option>
+          {% for f in fields %}<option value="{{ f }}" {{ 'selected' if request.args.get('field') == f }}>{{ f }}</option>{% endfor %}
+        </select>
+        <button class="btn-sf">Search</button>
+      </form>
+
+      <p class="result-count">
+        {{ items|length }} scholarship{{ '' if items|length == 1 else 's' }} found
+        {% if mode == 'search' %} &nbsp;<a href="/dashboard">Clear search</a>{% endif %}
+      </p>
+
+      {% for s, r in items %}
+      <article class="sch-card sch-row">
+        <div class="row-head">
+          <h3>{{ s.title }}</h3>
+          {% if r %}<span class="status status-{{ r.status }}">{{ labels[r.status] }}</span>{% endif %}
+        </div>
+        <div class="sch-meta"><span>{{ s.provider }}{% if s.location %}, {{ s.location }}{% endif %}</span></div>
+        <p class="desc">{{ s.description }}</p>
+        <div class="facts">
+          <div><span>Degree level</span>{{ s.degree_level or 'Any' }}</div>
+          <div><span>Field of study</span>{{ s.field_of_study or 'Any' }}</div>
+          <div><span>Amount</span>{{ s.amount or 'Not specified' }}</div>
+          <div><span>Deadline</span>{{ s.deadline.strftime('%d %b %Y') if s.deadline else 'Not specified' }}</div>
+        </div>
+        {% if r %}
+        <ul class="req-list">
+          {% for m in r.met %}<li class="req-met">{{ m }}</li>{% endfor %}
+          {% for m in r.missing %}<li class="req-missing">{{ m }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+        {% if s.official_url %}
+        <div class="actions"><a class="btn-sf outline small" href="{{ s.official_url }}" target="_blank" rel="noopener">Official website</a></div>
+        {% endif %}
+      </article>
+      {% else %}
+      <div class="empty-state">
+        <strong>No scholarships found</strong>
+        <p class="mb-0">{% if mode == 'matched' %}Nothing matches your profile yet. Edit your profile, or check back when new scholarships are added.{% else %}Try a different search, or clear the filters.{% endif %}</p>
+      </div>
+      {% endfor %}
+
+      {% if colleges %}
+      <div class="section-head mt-section">
+        <div><h2>{{ h[1] }}</h2></div>
+      </div>
+      <div class="mini-grid">
+        {% for c in colleges %}
+        <div class="college-mini">
+          <span class="college-logo">{{ (c.name.split()|map('first')|select('upper')|list)[:2]|join('') }}</span>
+          <div>
+            <h3>{{ c.name }}</h3>
+            <div class="where">{{ c.location }}</div>
+            <div class="count">{{ c.count }} scholarship{{ '' if c.count == 1 else 's' }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </section>
+
+    <aside class="dash-side">
+      {% if profile and profile.degree_level %}
+      <div class="side-card">
+        <h2>Your profile</h2>
+        <ul class="profile-facts">
+          <li><span>Degree level</span>{{ profile.degree_level }}</li>
+          <li><span>Field of study</span>{{ profile.field_of_study }}</li>
+          <li><span>GPA</span>{{ profile.gpa if profile.gpa is not none else 'Not added' }}</li>
+          <li><span>Location</span>{{ profile.location or 'Not added' }}</li>
+        </ul>
+        {% if items and items[0][1] %}
+        <p class="muted" style="font-size:.9rem">Each scholarship is checked against this profile.</p>
+        {% endif %}
+        <a class="btn-sf outline block" href="/profile">Edit profile</a>
+      </div>
+      {% else %}
+      <div class="side-card">
+        <div class="side-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h2>See the scholarships that match you</h2>
+        <p class="muted">Create your profile and we will show which scholarships you qualify for, and what is missing for the rest.</p>
+        <ul class="ticks">
+          <li><span class="tick-icon">&#10003;</span><div>Degree level and field of study</div></li>
+          <li><span class="tick-icon">&#10003;</span><div>GPA and location</div></li>
+          <li><span class="tick-icon">&#10003;</span><div>Family income and interests</div></li>
+        </ul>
+        <a class="btn-sf block" href="/profile">Create my profile</a>
+        <p class="finder-note">It takes about a minute.</p>
+      </div>
+      {% endif %}
+    </aside>
+
+  </div>
+</div>
 {% endblock %}

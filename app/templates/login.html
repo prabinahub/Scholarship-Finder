@@ -1,22 +1,32 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}Log in{% endblock %}
 
 {% block content %}
-<div class="card mx-auto" style="max-width: 460px;">
-  <div class="card-body">
-    <h4 class="mb-3">Login</h4>
+<div class="wrap auth-grid">
+  <div class="auth-side">
+    <h1>Welcome back</h1>
+    <p class="lead">Log in to see the scholarships that match your profile.</p>
+    <ul class="ticks">
+      <li><span class="tick-icon">&#10003;</span><div><strong>Your results, always up to date</strong><span class="sub">New scholarships are checked against your profile.</span></div></li>
+      <li><span class="tick-icon">&#10003;</span><div><strong>Apply on the official website</strong><span class="sub">We link you to each provider's own page.</span></div></li>
+    </ul>
+  </div>
+
+  <div class="auth-card">
+    <h2>Log in</h2>
+    <p class="muted">Enter your email and password.</p>
     <form method="post">
-      <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input class="form-control" type="email" name="email" required>
+      <div class="field">
+        <label for="email">Email address</label>
+        <input id="email" class="form-control" type="email" name="email" placeholder="you@example.com" required>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input class="form-control" type="password" name="password" required>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" class="form-control" type="password" name="password" placeholder="Your password" required>
       </div>
-      <button class="btn btn-primary w-100">Login</button>
+      <button class="btn-sf block">Log in</button>
     </form>
-    <p class="small text-center mt-3 mb-0">New here? <a href="/register">Create an account</a></p>
+    <p class="switch">New here? <a href="/register">Create an account</a></p>
   </div>
 </div>
 {% endblock %}

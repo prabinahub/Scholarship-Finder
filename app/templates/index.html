@@ -1,32 +1,120 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="bg-primary text-white text-center rounded-3 p-5 mb-4">
-  <h1 class="fw-bold">Find scholarships you actually qualify for</h1>
-  <p class="lead">Create a profile once. We check every scholarship against it and show
-    which requirements you meet and which you are missing.</p>
-  <a class="btn btn-light btn-lg me-2" href="/register">Get started</a>
-  <a class="btn btn-outline-light btn-lg" href="/login">Login</a>
-</div>
 
-<div class="row text-center g-3">
-  <div class="col-md-4">
-    <div class="card h-100"><div class="card-body">
-      <h5>1. Build your profile</h5>
-      <p class="text-muted mb-0">GPA, degree level, field of study, income and interests.</p>
-    </div></div>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Find the scholarships you actually qualify for</h1>
+      <p class="lead">Build your profile once. We check every scholarship against it and tell you which requirements you meet and which you are missing.</p>
+      <div class="hero-actions">
+        <a class="btn-sf" href="/register">Create free account</a>
+        <a class="btn-sf outline" href="/login">Log in</a>
+      </div>
+      <ul class="ticks">
+        <li><span class="tick-icon">&#10003;</span><div><strong>One place for scholarships</strong><span class="sub">Colleges, universities and providers across Nepal.</span></div></li>
+        <li><span class="tick-icon">&#10003;</span><div><strong>Clear reasons, not just a yes or no</strong><span class="sub">See exactly what is missing for each scholarship.</span></div></li>
+        <li><span class="tick-icon">&#10003;</span><div><strong>Apply on the official website</strong><span class="sub">We send you straight to the provider's page.</span></div></li>
+      </ul>
+    </div>
   </div>
-  <div class="col-md-4">
-    <div class="card h-100"><div class="card-body">
-      <h5>2. See your eligibility</h5>
-      <p class="text-muted mb-0">Eligible, close match or not eligible, with clear reasons.</p>
-    </div></div>
+</section>
+
+<section class="page-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Featured scholarships</h2>
+        <p>A few of the scholarships students can find here.</p>
+      </div>
+      <a href="/register">See all scholarships</a>
+    </div>
+    <div class="card-grid">
+      <article class="sch-card">
+        <span class="chip">Merit-based</span>
+        <h3><a href="/register">Merit Scholarship (sample)</a></h3>
+        <div class="sch-meta"><span>Sample College</span><span>Lalitpur</span></div>
+        <p class="desc">Awarded to students with outstanding results in their previous level.</p>
+        <div class="actions"><a class="btn-sf outline small" href="/register">View details</a></div>
+      </article>
+      <article class="sch-card">
+        <span class="chip">Need-based</span>
+        <h3><a href="/register">Need-Based Support (sample)</a></h3>
+        <div class="sch-meta"><span>Sample Education Trust</span><span>Kathmandu</span></div>
+        <p class="desc">Fee support for capable students from low-income families.</p>
+        <div class="actions"><a class="btn-sf outline small" href="/register">View details</a></div>
+      </article>
+      <article class="sch-card">
+        <span class="chip">Regional</span>
+        <h3><a href="/register">Regional Scholarship (sample)</a></h3>
+        <div class="sch-meta"><span>Sample Provincial Fund</span><span>Karnali</span></div>
+        <p class="desc">Open to students from remote districts continuing higher education.</p>
+        <div class="actions"><a class="btn-sf outline small" href="/register">View details</a></div>
+      </article>
+    </div>
   </div>
-  <div class="col-md-4">
-    <div class="card h-100"><div class="card-body">
-      <h5>3. Apply officially</h5>
-      <p class="text-muted mb-0">We send you to the provider's official website.</p>
-    </div></div>
+</section>
+
+<section class="page-section tint">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Colleges offering scholarships</h2>
+        <p>Explore colleges and universities that have scholarship programs open.</p>
+      </div>
+      <a href="/register">View all colleges</a>
+    </div>
+    <div class="college-grid">
+      <article class="college-card">
+        <div class="college-top"><span class="college-logo">SM</span><span class="college-open">Scholarships open</span></div>
+        <div class="college-body">
+          <h3><a href="/register">Sample College of Management</a></h3>
+          <span class="where">Lalitpur</span>
+          <div class="college-foot"><span class="count">7 scholarships</span><a href="/register">View</a></div>
+        </div>
+      </article>
+      <article class="college-card">
+        <div class="college-top"><span class="college-logo">ST</span><span class="college-open">Scholarships open</span></div>
+        <div class="college-body">
+          <h3><a href="/register">Sample Technical College</a></h3>
+          <span class="where">Kathmandu</span>
+          <div class="college-foot"><span class="count">6 scholarships</span><a href="/register">View</a></div>
+        </div>
+      </article>
+      <article class="college-card">
+        <div class="college-top"><span class="college-logo">SU</span><span class="college-open">Scholarships open</span></div>
+        <div class="college-body">
+          <h3><a href="/register">Sample University</a></h3>
+          <span class="where">Bhaktapur</span>
+          <div class="college-foot"><span class="count">5 scholarships</span><a href="/register">View</a></div>
+        </div>
+      </article>
+      <article class="college-card">
+        <div class="college-top"><span class="college-logo">SH</span><span class="college-open">Scholarships open</span></div>
+        <div class="college-body">
+          <h3><a href="/register">Sample Health Sciences Institute</a></h3>
+          <span class="where">Pokhara</span>
+          <div class="college-foot"><span class="count">5 scholarships</span><a href="/register">View</a></div>
+        </div>
+      </article>
+      <article class="college-card">
+        <div class="college-top"><span class="college-logo">SE</span><span class="college-open">Scholarships open</span></div>
+        <div class="college-body">
+          <h3><a href="/register">Sample Engineering Campus</a></h3>
+          <span class="where">Dharan</span>
+          <div class="college-foot"><span class="count">4 scholarships</span><a href="/register">View</a></div>
+        </div>
+      </article>
+      <article class="college-card">
+        <div class="college-top"><span class="college-logo">SA</span><span class="college-open">Scholarships open</span></div>
+        <div class="college-body">
+          <h3><a href="/register">Sample Agriculture College</a></h3>
+          <span class="where">Chitwan</span>
+          <div class="college-foot"><span class="count">3 scholarships</span><a href="/register">View</a></div>
+        </div>
+      </article>
+    </div>
   </div>
-</div>
+</section>
+
 {% endblock %}

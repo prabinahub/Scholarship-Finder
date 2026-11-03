@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}My profile{% endblock %}
+
+{% block content %}
+<div class="card mx-auto" style="max-width: 720px;">
+  <div class="card-body">
+    <h4 class="mb-1">My profile</h4>
+    <p class="text-muted">This information is used to check your eligibility.</p>
+    <form method="post" class="row g-3">
+
+      <div class="col-md-6">
+        <label class="form-label">Degree level you are applying for</label>
+        <select class="form-select" name="degree_level" required>
+          <option value="">Select</option>
+          {% for l in levels %}
+            <option value="{{ l }}" {{ 'selected' if p.degree_level == l }}>{{ l }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Field of study</label>
+        <select class="form-select" name="field_of_study" required>
+          <option value="">Select</option>
+          {% for f in fields %}
+            <option value="{{ f }}" {{ 'selected' if p.field_of_study == f }}>{{ f }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">University / college</label>
+        <input class="form-control" name="institution" value="{{ p.institution or '' }}">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Course / program</label>
+        <input class="form-control" name="course" value="{{ p.course or '' }}" placeholder="e.g. BTechEd in IT">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">GPA (out of 4.0)</label>
+        <input class="form-control" type="number" step="0.01" min="0" max="4" name="gpa"
+               value="{{ p.gpa if p.gpa is not none else '' }}">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Location (province)</label>
+        <input class="form-control" name="location" value="{{ p.location or '' }}" placeholder="e.g. Bagmati">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Nationality</label>
+        <input class="form-control" name="nationality" value="{{ p.nationality or 'Nepali' }}">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Yearly family income (NPR)</label>
+        <input class="form-control" type="number" min="0" name="income"
+               value="{{ p.income if p.income is not none else '' }}">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Interests (comma separated)</label>
+        <input class="form-control" name="interests" value="{{ p.interests or '' }}"
+               placeholder="e.g. web development, teaching, AI">
+      </div>
+
+      <div class="col-12">
+        <button class="btn btn-primary">Save profile</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

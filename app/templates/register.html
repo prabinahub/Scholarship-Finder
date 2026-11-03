@@ -1,26 +1,38 @@
 {% extends "base.html" %}
-{% block title %}Register{% endblock %}
+{% block title %}Create account{% endblock %}
 
 {% block content %}
-<div class="card mx-auto" style="max-width: 460px;">
-  <div class="card-body">
-    <h4 class="mb-3">Create student account</h4>
+<div class="wrap auth-grid">
+  <div class="auth-side">
+    <h1>Your next step starts here</h1>
+    <p class="lead">Create a student account to see which scholarships you qualify for.</p>
+    <ul class="ticks">
+      <li><span class="tick-icon">&#10003;</span><div><strong>Check eligibility in seconds</strong><span class="sub">Based on your GPA, degree level and field.</span></div></li>
+      <li><span class="tick-icon">&#10003;</span><div><strong>Understand every result</strong><span class="sub">See what you meet and what is missing.</span></div></li>
+      <li><span class="tick-icon">&#10003;</span><div><strong>Verified listings only</strong><span class="sub">An administrator reviews each scholarship first.</span></div></li>
+    </ul>
+  </div>
+
+  <div class="auth-card">
+    <h2>Create your account</h2>
+    <p class="muted">It takes less than a minute.</p>
     <form method="post">
-      <div class="mb-3">
-        <label class="form-label">Full name</label>
-        <input class="form-control" name="name" required>
+      <div class="field">
+        <label for="name">Full name</label>
+        <input id="name" class="form-control" name="name" placeholder="Enter your full name" required>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input class="form-control" type="email" name="email" required>
+      <div class="field">
+        <label for="email">Email address</label>
+        <input id="email" class="form-control" type="email" name="email" placeholder="you@example.com" required>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Password (at least 6 characters)</label>
-        <input class="form-control" type="password" name="password" minlength="6" required>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" class="form-control" type="password" name="password" minlength="6" placeholder="Create a password" required>
+        <div class="hint">Use at least 6 characters.</div>
       </div>
-      <button class="btn btn-primary w-100">Register</button>
+      <button class="btn-sf block">Create account</button>
     </form>
-    <p class="small text-center mt-3 mb-0">Already registered? <a href="/login">Login</a></p>
+    <p class="switch">Already have an account? <a href="/login">Log in</a></p>
   </div>
 </div>
 {% endblock %}
