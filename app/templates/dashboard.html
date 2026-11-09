@@ -3,10 +3,11 @@
 
 {% block content %}
 {% set labels = {'eligible': 'Eligible', 'close': 'Close match', 'not': 'Not eligible'} %}
+{% set group_labels = {'eligible': 'You are eligible', 'close': 'Close matches', 'not': 'Not eligible'} %}
 {% set heads = {
   'all':     ('All scholarships', 'Colleges offering scholarships'),
   'search':  ('Search results', 'Colleges offering these scholarships'),
-  'matched': ('Scholarships matched to your profile', 'Colleges offering your matches')
+  'matched': ('Scholarships matched to your profile', 'Colleges offering these scholarships')
 } %}
 {% set h = heads[mode] %}
 <div class="wrap page-pad">
@@ -32,12 +33,23 @@
         <button class="btn-sf">Search</button>
       </form>
 
+      {% if tabs %}
+      <nav class="tabs" aria-label="Filter by eligibility">
+        {% for t in tabs %}<a class="tab {{ 'active' if t.active }}" href="{{ t.url }}">{{ t.label }}</a>{% endfor %}
+      </nav>
+      {% endif %}
+
       <p class="result-count">
         {{ items|length }} scholarship{{ '' if items|length == 1 else 's' }} found
         {% if mode == 'search' %} &nbsp;<a href="/dashboard">Clear search</a>{% endif %}
       </p>
 
+      {% set ns = namespace(prev=None) %}
       {% for s, r in items %}
+      {% if r and r.status != ns.prev %}
+      <h2 class="group-title">{{ group_labels[r.status] }}</h2>
+      {% set ns.prev = r.status %}
+      {% endif %}
       <article class="sch-card sch-row">
         <div class="row-head">
           <h3>{{ s.title }}</h3>
@@ -64,7 +76,7 @@
       {% else %}
       <div class="empty-state">
         <strong>No scholarships found</strong>
-        <p class="mb-0">{% if mode == 'matched' %}Nothing matches your profile yet. Edit your profile, or check back when new scholarships are added.{% else %}Try a different search, or clear the filters.{% endif %}</p>
+        <p class="mb-0">{% if tabs %}Try the Everything tab, or edit your profile.{% else %}Try a different search, or clear the filters.{% endif %}</p>
       </div>
       {% endfor %}
 
@@ -123,3 +135,4 @@
   </div>
 </div>
 {% endblock %}
+
