@@ -205,6 +205,14 @@ p { margin: 0 0 1rem; }
 .form-grid .full { grid-column: 1 / -1; }
 .form-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 
+/* Eligibility tabs and group headings */
+.tabs { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 1rem; }
+.tab { padding: .35rem .85rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); text-decoration: none; font-size: .9rem; font-weight: 500; }
+.tab:hover { color: var(--ink); border-color: #b9c6c8; }
+.tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.group-title { font-size: 1rem; color: var(--muted); font-weight: 600; margin: 1.5rem 0 .6rem; }
+.status { white-space: nowrap; }
+
 /* Phones and small tablets */
 @media (max-width: 860px) {
   .hero-grid, .auth-grid, .dash-grid, .filter-bar { grid-template-columns: 1fr; gap: 2rem; }

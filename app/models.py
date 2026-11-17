@@ -33,3 +33,25 @@ class Profile(db.Model):
     nationality = db.Column(db.String(50), default="Nepali")
     income = db.Column(db.Integer)             # yearly family income (NPR)
     interests = db.Column(db.String(255))
+
+class Scholarship(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    provider = db.Column(db.String(150))          # the college, university or organization
+    location = db.Column(db.String(100))          # where the provider is, e.g. Lalitpur
+    description = db.Column(db.Text)
+    amount = db.Column(db.String(100))
+    deadline = db.Column(db.Date)
+    official_url = db.Column(db.String(300))      # where students apply
+    source_url = db.Column(db.String(300))        # where the scraper found it
+
+    # Eligibility rules (leave empty = no rule)
+    degree_level = db.Column(db.String(100))      # e.g. "Bachelor, Master"
+    field_of_study = db.Column(db.String(200))    # e.g. "IT, Engineering"
+    min_gpa = db.Column(db.Float)
+    max_income = db.Column(db.Integer)            # yearly family income limit, NPR
+    nationality = db.Column(db.String(50))
+    required_location = db.Column(db.String(100)) # students must be from here, e.g. Karnali
+
+    # pending (just collected) / verified (visible to students) / rejected
+    status = db.Column(db.String(20), default="pending")
