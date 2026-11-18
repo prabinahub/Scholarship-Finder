@@ -157,6 +157,9 @@ def create_app():
 
             order = {"eligible": 0, "close": 1, "not": 2}      # best first
             results.sort(key=lambda item: order[item[1]["status"]])
+            # Interest ordering applies only to the scholarships the student is
+            # eligible for. Close matches and not-eligible ones keep their order,
+            # so interest can never change which group a scholarship is in.
             eligible_part = [item for item in results if item[1]["status"] == "eligible"]
             other_part = [item for item in results if item[1]["status"] != "eligible"]
             results = order_by_interest(p, eligible_part) + other_part
