@@ -3,8 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from config import Config
 from .eligibility import check
-from .recommender import order_by_interest
-
+from .recommender import rank_eligible
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -157,12 +156,13 @@ def create_app():
 
             order = {"eligible": 0, "close": 1, "not": 2}      # best first
             results.sort(key=lambda item: order[item[1]["status"]])
-            # Interest ordering applies only to the scholarships the student is
-            # eligible for. Close matches and not-eligible ones keep their order,
-            # so interest can never change which group a scholarship is in.
+            # Only scholarships the student is eligible for are ranked, using
+            # TOPSIS (interest match + days left). Close matches and not-eligible
+            # ones keep their order, so ranking can never change a group.
             eligible_part = [item for item in results if item[1]["status"] == "eligible"]
             other_part = [item for item in results if item[1]["status"] != "eligible"]
-            results = order_by_interest(p, eligible_part) + other_part
+            results = rank_eligible(p, eligible_part) + other_part
+            
 
             base = request.args.to_dict()
             for key, label in [("matches", f"Best matches ({count['eligible'] + count['close']})"),
